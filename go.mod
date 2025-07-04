@@ -1,4 +1,4 @@
-module github.com/Jawkx/contextgrep
+module github.com/Jawkx/ctxcat
 
 go 1.21
 

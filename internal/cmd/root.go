@@ -3,9 +3,9 @@ package cmd
 import (
 	"bufio"
 	"fmt"
-	"github.com/Jawkx/contextgrep/internal/config"
-	"github.com/Jawkx/contextgrep/internal/processor"
-	"github.com/Jawkx/contextgrep/internal/walker"
+	"github.com/Jawkx/ctxcat/internal/config"
+	"github.com/Jawkx/ctxcat/internal/processor"
+	"github.com/Jawkx/ctxcat/internal/walker"
 	"io"
 	"os"
 	"sort"

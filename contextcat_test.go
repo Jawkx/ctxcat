@@ -55,7 +55,7 @@ func TestBasicRecursion(t *testing.T) {
 	assert.Contains(t, stdout, "File Start: project1/main.go")
 	assert.Contains(t, stdout, "File Start: project1/src/helper.go")
 	assert.NotContains(t, stdout, "project1/dist/app")        // Ignored by .gitignore
-	assert.NotContains(t, stdout, "project1/data.bin")      // Binary file
+	assert.NotContains(t, stdout, "project1/data.bin")        // Binary file
 	assert.NotContains(t, stdout, "project1/secrets/key.txt") // Ignored by .gitignore
 }
 
