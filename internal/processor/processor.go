@@ -113,6 +113,9 @@ func (p *FileProcessor) ProcessPaths(paths []string) ([]string, error) {
 			}
 
 			if d.IsDir() {
+				if p.config.NoRecursive && currentPath != path {
+					return filepath.SkipDir
+				}
 				// To improve performance, skip directories that are ignored.
 				if currentPath != path && p.shouldSkipDir(currentPath) {
 					return filepath.SkipDir
