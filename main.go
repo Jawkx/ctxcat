@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/Jawkx/contextcat/internal/cmd"
+	"github.com/Jawkx/ctxcat/internal/cmd"
 )
 
 func main() {

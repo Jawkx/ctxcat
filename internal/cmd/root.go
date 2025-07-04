@@ -27,15 +27,8 @@ var (
 const version = "1.0.0"
 
 var rootCmd = &cobra.Command{
-	Use:   "contextgrep [OPTIONS] [PATH...]",
-	Short: "Gathers file contents for LLM prompts.",
-	Long: `contextgrep is a command-line utility that intelligently gathers and concatenates
-file contents from specified paths into a single, formatted text blob.
-
-Its primary purpose is to create a clean, context-rich string that can be easily
-copied and pasted into a Large Language Model (LLM) prompt. It supports glob
-patterns (including '**'), respects .gitignore files by default, and allows for
-custom output formatting via templates.`,
+	Use:     "ctxcat [OPTIONS] [PATH...]",
+	Short:   "Gathers file contents for LLM prompts.",
 	Version: version,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		// Handle version flag separately to avoid running the whole tool
