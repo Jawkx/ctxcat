@@ -32,6 +32,13 @@ func (f *Formatter) Format(path string) (string, error) {
 	}
 	relPath = filepath.ToSlash(relPath) // Use forward slashes for consistency
 
+	absPath, err := filepath.Abs(path)
+	if err != nil {
+		absPath = path // Fallback to original path
+	}
+
+	absPath = filepath.ToSlash(absPath)
+
 	base := filepath.Base(relPath)
 	ext := filepath.Ext(base)
 	filename := strings.TrimSuffix(base, ext)
@@ -43,6 +50,7 @@ func (f *Formatter) Format(path string) (string, error) {
 	replacer := strings.NewReplacer(
 		"{content}", content,
 		"{path}", relPath,
+		"{abspath}", absPath,
 		"{basename}", base,
 		"{filename}", filename,
 		"{extension}", ext,

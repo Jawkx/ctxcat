@@ -77,6 +77,7 @@ Customize the output format using the `--template` flag with these variables:
 |----------|-------------|---------|
 | `{content}` | Full file content | `console.log('hello');` |
 | `{path}` | Relative file path | `src/components/Button.js` |
+| `{absPath}` | Absolute file path | `User/project/src/components/Button.js` |
 | `{basename}` | Filename with extension | `Button.js` |
 | `{filename}` | Filename without extension | `Button` |
 | `{extension}` | File extension (no dot) | `js` |

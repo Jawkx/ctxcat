@@ -93,9 +93,8 @@ func (p *FileProcessor) ProcessPaths(paths []string) ([]string, error) {
 
 		if !info.IsDir() {
 			if p.shouldInclude(path) {
-				absPath, _ := filepath.Abs(path)
 				mu.Lock()
-				finalFiles[absPath] = struct{}{}
+				finalFiles[path] = struct{}{}
 				mu.Unlock()
 			}
 			continue
@@ -122,9 +121,8 @@ func (p *FileProcessor) ProcessPaths(paths []string) ([]string, error) {
 			}
 
 			if p.shouldInclude(currentPath) {
-				absPath, _ := filepath.Abs(currentPath)
 				mu.Lock()
-				finalFiles[absPath] = struct{}{}
+				finalFiles[currentPath] = struct{}{}
 				mu.Unlock()
 			}
 			return nil
