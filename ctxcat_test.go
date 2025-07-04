@@ -19,10 +19,10 @@ func TestMain(m *testing.M) {
 	if err != nil {
 		panic("failed to create tmp dir for test binary")
 	}
-	cmd := exec.Command("go", "build", "-o", "tmp/contextgrep", ".")
+	cmd := exec.Command("go", "build", "-o", "tmp/ctxcat", ".")
 	err = cmd.Run()
 	if err != nil {
-		panic("failed to build contextgrep for testing")
+		panic("failed to build ctxcat for testing")
 	}
 
 	// Setup test data directory
@@ -39,7 +39,7 @@ func TestMain(m *testing.M) {
 }
 
 func runCtxGrep(t *testing.T, args ...string) (string, string, error) {
-	cmd := exec.Command("./tmp/contextgrep", args...)
+	cmd := exec.Command("./tmp/ctxcat", args...)
 	cmd.Dir = "testdata" // Run all tests from within the testdata directory
 	var stdout, stderr strings.Builder
 	cmd.Stdout = &stdout
@@ -132,7 +132,7 @@ func TestOutputToFile(t *testing.T) {
 
 func TestStdin(t *testing.T) {
 	input := "project1/main.go\nproject1/README.md\n"
-	cmd := exec.Command("./tmp/contextgrep")
+	cmd := exec.Command("./tmp/ctxcat")
 	cmd.Dir = "testdata"
 	cmd.Stdin = strings.NewReader(input)
 
