@@ -24,18 +24,17 @@ var (
 	showVersion     bool
 )
 
-const version = "1.0.0"
+var (
+	version = "dev"
+	commit  = "none"
+	date    = "unknown"
+)
 
 var rootCmd = &cobra.Command{
 	Use:     "ctxcat [OPTIONS] [PATH...]",
 	Short:   "Gathers file contents for LLM prompts.",
 	Version: version,
 	RunE: func(cmd *cobra.Command, args []string) error {
-		// Handle version flag separately to avoid running the whole tool
-		if showVersion {
-			fmt.Println(version)
-			return nil
-		}
 
 		// 1. Get input paths from arguments or stdin
 		paths, err := walker.GetInputPaths(args)
@@ -119,6 +118,11 @@ func Execute() {
 }
 
 func init() {
+
+	rootCmd.Version = fmt.Sprintf("%s (commit: %s, built at: %s)", version, commit, date)
+
+	rootCmd.SetVersionTemplate(`{{printf "%s\n" .Version}}`)
+
 	rootCmd.Flags().
 		BoolVarP(&noRecursive, "no-recursive", "r", false, "Disables recursive traversal of directories.")
 	rootCmd.Flags().
@@ -134,7 +138,4 @@ func init() {
 	rootCmd.Flags().
 		StringVar(&template, "template", "", "A template string that defines the output format.")
 	rootCmd.Flags().BoolVarP(&showVersion, "version", "v", false, "Show the version number.")
-
-	// Set custom version template to just print the version string
-	rootCmd.SetVersionTemplate(`{{.Version}}` + "\n")
 }
