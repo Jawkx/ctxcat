@@ -1,3 +1,5 @@
+![image](https://github.com/user-attachments/assets/18547d3b-49a4-421a-8e73-5d6cb97a53c9)
+
 # ctxcat
 
 A command-line utility that intelligently gathers and concatenates file contents into a single, formatted text blob - perfect for creating context-rich prompts for Large Language Models (LLMs).
