@@ -1,3 +1,6 @@
 dist/
 
 .env
+
+npm/node_modules
+npm/package-lock.json

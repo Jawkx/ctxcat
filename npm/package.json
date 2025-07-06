@@ -1,0 +1,20 @@
+{
+  "name": "ctxcat",
+  "version": "0.0.0",
+  "description": "A command-line utility that intelligently gathers and concatenates file contents.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Jawkx/ctxcat.git"
+  },
+  "bin": {
+    "ctxcat": "cli.js"
+  },
+  "files": [
+    "cli.js",
+    "install.js"
+  ],
+  "scripts": {
+    "postinstall": "node install.js"
+  }
+}
