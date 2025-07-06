@@ -42,15 +42,3 @@ release:
     ---
 
     Released by [GoReleaser](https://github.com/goreleaser/goreleaser).
-
-after:
-  hooks:
-    # This hook runs after the GitHub release is created.
-    # It changes into the 'npm' directory, updates the version
-    # in package.json to match the git tag, and publishes to npm.
-    - cmd: >
-        sh -c 'echo "Publishing version {{.Version}} to npm..." &&
-        cd npm &&
-        npm version {{.Version}} --no-git-tag-version &&
-        npm publish --access public'
-      dir: '{{ .Dir }}'
