@@ -1,6 +1,6 @@
 {
   "name": "ctxcat",
-  "version": "0.0.0",
+  "version": "0.1.1",
   "description": "A command-line utility that intelligently gathers and concatenates file contents.",
   "license": "MIT",
   "repository": {
