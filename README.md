@@ -13,6 +13,19 @@ A command-line utility that intelligently gathers and concatenates file contents
 - 📁 **Flexible Input**: Supports files, directories, and glob patterns
 - 🌐 **Cross-platform**: Consistent behavior across different operating systems
 
+## Installation
+
+### Quick and easy
+
+```bash
+npm install -g ctxcat
+```
+
+### Manual (recommended)
+
+1. Download the latest release from the [releases page](https://github.com/Jawkx/ctxcat/releases).
+2. Extract the binary to a directory in your `$PATH` (e.g. `/usr/local/bin`).
+
 ## Quick Start
 
 ```bash
