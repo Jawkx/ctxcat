@@ -217,21 +217,97 @@ ctxcat "**/*.md" "docs/**/*.txt"
 find . -name "*.config.*" -o -name ".*rc*" | ctxcat
 ```
 
-## Common Use Cases
+### Tips
 
-- **LLM Context Creation**: Prepare codebases for AI analysis
-- **Code Reviews**: Gather related files for review
-- **Documentation**: Create comprehensive file dumps
-- **Backup Snippets**: Collect important configuration files
-- **Project Analysis**: Aggregate source code for tools
+1. Most UI doesn't support pasting large amount of text into their UI. You can create this bash script to create a temp file and then copy it's reference to your clipboard. Then you can paste it as file into your UI.
 
-## Tips & Best Practices
+#### For macOS
 
-1. **Always quote glob patterns** for consistent behavior
-2. **Use `.ctxcat.template.txt`** for project-specific default templates
-3. **Combine with `find`** for complex file selection
-4. **Test exclusion patterns** with small directories first
-5. **Use `--output`** for large outputs to avoid terminal overflow
+``` bash
+#!/bin/bash
+
+# A script that saves stdout to a uniquely named file in a dedicated
+# directory and copies it to the clipboard. It cleans up the *previously*
+# created file on each new run.
+#
+# Usage:
+#   some_command | ./this_script.sh
+
+STORAGE_DIR="$HOME/.clipboard_files"
+TRACKER_FILE="$STORAGE_DIR/last_file.txt"
+
+mkdir -p "$STORAGE_DIR"
+
+if [ -s "$TRACKER_FILE" ]; then
+    LAST_FILE_PATH=$(cat "$TRACKER_FILE")
+    if [ -f "$LAST_FILE_PATH" ]; then
+        rm "$LAST_FILE_PATH"
+    fi
+fi
+
+TIMESTAMP=$(date +"%Y-%m-%d_%H-%M-%S")
+NEW_FILE_PATH="$STORAGE_DIR/clip_${TIMESTAMP}.md"
+
+cat - > "$NEW_FILE_PATH"
+
+osascript -e "set the clipboard to (POSIX file \"$NEW_FILE_PATH\")"
+
+echo "$NEW_FILE_PATH" > "$TRACKER_FILE"
+
+echo ":white_check_mark: File copied to clipboard: ${NEW_FILE_PATH##*/}"
+echo "   You can now paste it. The previous file has been cleaned up."
+```
+
+#### For Linux
+
+``` bash
+#!/bin/bash
+
+# A script that saves stdout to a uniquely named file in a dedicated
+# directory and copies it to the clipboard on Linux. It cleans up the
+# previously created file on each new run.
+#
+# Usage:
+#   some_command | ./this_script.sh
+
+STORAGE_DIR="$HOME/.clipboard_files"
+TRACKER_FILE="$STORAGE_DIR/last_file.txt"
+
+check_dependencies() {
+    if ! command -v xclip &> /dev/null
+    then
+        echo "Error: 'xclip' is not installed."
+        echo "Please install it using your distribution's package manager, e.g.:"
+        echo "  sudo apt install xclip   (for Debian/Ubuntu)"
+        echo "  sudo yum install xclip   (for CentOS/RHEL)"
+        echo "  sudo pacman -S xclip   (for Arch Linux)"
+        exit 1
+    fi
+}
+
+check_dependencies
+
+mkdir -p "$STORAGE_DIR"
+
+if [ -s "$TRACKER_FILE" ]; then
+    LAST_FILE_PATH=$(cat "$TRACKER_FILE")
+    if [ -f "$LAST_FILE_PATH" ]; then
+        rm "$LAST_FILE_PATH"
+    fi
+fi
+
+TIMESTAMP=$(date +"%Y-%m-%d_%H-%M-%S")
+NEW_FILE_PATH="$STORAGE_DIR/clip_${TIMESTAMP}.md"
+
+cat - > "$NEW_FILE_PATH"
+
+xclip -selection clipboard < "$NEW_FILE_PATH"
+
+echo "$NEW_FILE_PATH" > "$TRACKER_FILE"
+
+echo ":white_check_mark: File copied to clipboard: ${NEW_FILE_PATH##*/}"
+echo "    You can now paste it. The previous file has been cleaned up."
+```
 
 ## Contributing
 
